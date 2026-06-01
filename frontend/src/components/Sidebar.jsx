@@ -18,7 +18,12 @@ export default function Sidebar() {
       <div>
         {/* Brand/Logo */}
         <div className="mb-8 border-b border-slate-100 pb-4">
-          <span className="font-bold text-lg tracking-tight text-slate-900">Inventory Management</span>
+          <Link
+            href="/"
+            className="block font-bold text-lg tracking-tight text-slate-900 hover:text-blue-600 transition-colors select-none"
+          >
+            Inventory Management System
+          </Link>
         </div>
 
         {/* Menu Navigation */}

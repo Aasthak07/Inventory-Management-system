@@ -6,17 +6,17 @@ This project implements essential business validations, database-level uniquenes
 
 ---
 
-## 🎨 UI/UX Design System & Aesthetics
+## UI/UX Design System & Aesthetics
 Following modern SaaS design principles, we avoided heavy gradients and dark neon overlays in favor of a clean, minimal design:
 - **Visual Palette**: Neutral slate backgrounds (`#f8fafc` slate-50), white card panels, subtle border borders (`border-slate-200`), and dark slate branding.
-- **Outfit Typography**: Modern typography configured via Google Fonts.
+- **Inter Typography**: Modern typography configured via Google Fonts.
 - **KPI Metrics Widgets**: 4 premium real-time telemetry panels (SKU Catalog, Active Customers, Processed Orders, Grand Valuation).
 - **Responsive Navigation**: An off-white fixed sidebar (`w-64`) with smooth transitions and active indicators.
 - **Interactive Checkout Desk**: A dynamic checkout cart enabling administrators to select customer profiles, add dynamic product lines, specify quantities, view live subtotal cost valuations, and see visual stock availability checks.
 
 ---
 
-## 🚀 How to Run the Application Locally
+## How to Run the Application Locally
 
 We support two ways of running this application:
 
@@ -29,9 +29,9 @@ This launches a PostgreSQL database container, the FastAPI backend, and the Next
    docker-compose up --build
    ```
 3. **Access App**:
-   - 🖥️ **Next.js Web Dashboard**: Open [http://localhost:3000](http://localhost:3000)
-   - 📖 **Interactive Backend API Docs**: Open [http://localhost:8000/docs](http://localhost:8000/docs)
-   - 🗃️ **Database Port**: PostgreSQL binds to local port `5432` with username `postgres` and password `postgrespassword`.
+   - **Next.js Web Dashboard**: Open [http://localhost:3000](http://localhost:3000)
+   - **Interactive Backend API Docs**: Open [http://localhost:8000/docs](http://localhost:8000/docs)
+   - **Database Port**: PostgreSQL binds to local port `5432` with username `postgres` and password `postgrespassword`.
 
 ---
 
@@ -39,16 +39,33 @@ This launches a PostgreSQL database container, the FastAPI backend, and the Next
 To make local testing effortless, the backend automatically detects if PostgreSQL variables are provided. If running locally without Docker, **it falls back to a local SQLite database (`inventory.db`)**. You do not need to install PostgreSQL locally to run this method!
 
 #### Step A: Boot the Backend API
-1. Open a terminal in the `./backend/` directory.
-2. Install packages:
+1. **Navigate to the Backend Directory**:
+   Open a terminal in the project root and navigate to the backend folder:
+   ```bash
+   cd "backend"
+   ```
+2. **Create a Virtual Environment** (Recommended sandbox):
+   ```bash
+   python -m venv venv
+   ```
+3. **Activate the Virtual Environment**:
+   - On Windows (PowerShell):
+     ```powershell
+     .\venv\Scripts\Activate.ps1
+     ```
+   - On Mac/Linux:
+     ```bash
+     source venv/bin/activate
+     ```
+4. **Install Required Packages**:
    ```bash
    pip install -r requirements.txt
    ```
-3. Start the FastAPI server:
+5. **Start the FastAPI Backend Server**:
    ```bash
-   uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+   python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
    ```
-   *(The server will boot on `http://localhost:8000` and create `inventory.db` automatically).*
+   *(The server will start on `http://127.0.0.1:8000` and automatically create the SQLite database `inventory.db` in your backend folder).*
 
 #### Step B: Boot the Next.js Frontend
 1. Open a terminal in the `./frontend/` directory.
@@ -64,7 +81,7 @@ To make local testing effortless, the backend automatically detects if PostgreSQ
 
 ---
 
-## 🛠️ Step-by-Step Technical Design
+## Step-by-Step Technical Design
 
 ### 1. Database Schema & Tables (`backend/app/models.py`)
 We modeled our schema using SQLAlchemy ORM classes to match standard production assignments:
@@ -105,7 +122,7 @@ To prevent stock inconsistencies and race conditions under concurrent checkouts,
 
 ---
 
-## 🧪 Automated Business Rule Verification Script
+## Automated Business Rule Verification Script
 We built an automated diagnostic script at `backend/verify_rules.py` to assert constraints. You can run it locally:
 ```bash
 python backend/verify_rules.py
@@ -145,7 +162,7 @@ ALL BUSINESS RULE VALIDATIONS PASSED SUCCESSFULY!
 
 ---
 
-## 🌐 Production Cloud Deployment Guides
+## Production Cloud Deployment Guides
 
 This project is fully ready for zero-downtime production builds:
 
