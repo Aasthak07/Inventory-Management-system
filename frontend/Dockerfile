@@ -1,20 +1,24 @@
-# Use an official Node runtime as a parent image
 FROM node:18-alpine
 
-# Set working directory in container
 WORKDIR /app
 
-# Copy package list and lockfiles
+# Copy package files and install dependencies
 COPY package*.json ./
-
-# Install packages
 RUN npm install
 
-# Copy application code
+# Copy all source code
 COPY . .
 
-# Expose the dashboard port
+# Accept the backend API URL at build time
+# Next.js bakes NEXT_PUBLIC_ vars into the bundle during build
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+
+# Build the production bundle
+RUN npm run build
+
+# Expose the port Next.js runs on
 EXPOSE 3000
 
-# Run in development dev-server mode for immediate diagnostic logging
-CMD ["npm", "run", "dev"]
+# Start the production server
+CMD ["npm", "start"]
