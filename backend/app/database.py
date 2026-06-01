@@ -7,7 +7,12 @@ connect_args = {}
 if settings.DATABASE_URL.startswith("sqlite"):
     connect_args = {"check_same_thread": False}
 
-engine = create_engine(settings.DATABASE_URL, connect_args=connect_args)
+engine = create_engine(
+    settings.DATABASE_URL,
+    connect_args=connect_args,
+    pool_pre_ping=True,   # Test connection before use — handles Neon pooler SSL drops
+    pool_recycle=300,     # Recycle connections every 5 min to avoid stale SSL sessions
+)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
