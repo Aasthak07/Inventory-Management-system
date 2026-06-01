@@ -1,6 +1,17 @@
 import axios from "axios";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const getApiBase = () => {
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    return process.env.NEXT_PUBLIC_API_URL;
+  }
+  // Fallback to the production backend URL if on the Railway frontend domain
+  if (typeof window !== "undefined" && window.location.hostname.includes("railway.app")) {
+    return "https://inventory-management-system-production-b5d6.up.railway.app";
+  }
+  return "http://localhost:8000";
+};
+
+const API_BASE = getApiBase();
 
 export const apiClient = axios.create({
   baseURL: API_BASE,
