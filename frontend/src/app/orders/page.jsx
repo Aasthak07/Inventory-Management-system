@@ -311,10 +311,10 @@ export default function OrdersPage() {
                     const isOutOfStock = selectedProd ? selectedProd.stock_quantity < line.quantity : false;
 
                     return (
-                      <div key={index} className="p-4 border border-slate-100 bg-slate-50/50 rounded-xl space-y-3 shadow-xs">
-                        <div className="flex items-end gap-4">
+                      <div key={index} className="p-4 border border-slate-100 bg-slate-50/50 rounded-xl space-y-3 shadow-xs animate-fade-in">
+                        <div className="flex flex-col sm:flex-row sm:items-end gap-4">
                           {/* Product Select */}
-                          <div className="flex-1 space-y-1">
+                          <div className="w-full sm:flex-1 space-y-1">
                             <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Product</label>
                             <select
                               className="w-full bg-white border border-slate-200 text-slate-900 rounded-lg px-3 py-2 font-semibold text-xs focus:outline-none focus:border-slate-400 transition"
@@ -331,39 +331,42 @@ export default function OrdersPage() {
                             </select>
                           </div>
 
-                          {/* Quantity */}
-                          <div className="w-24 space-y-1">
-                            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Quantity</label>
-                            <input
-                              type="number"
-                              min="1"
-                              className="w-full bg-white border border-slate-200 text-slate-900 rounded-lg px-3 py-2 font-semibold text-xs focus:outline-none focus:border-slate-400 transition"
-                              value={line.quantity}
-                              onChange={(e) => handleLineChange(index, "quantity", parseInt(e.target.value) || 1)}
-                              disabled={!line.product_id}
-                              required
-                            />
-                          </div>
+                          {/* Quantity & Subtotal & Delete Row grouped beautifully for mobile */}
+                          <div className="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto">
+                            {/* Quantity */}
+                            <div className="w-24 space-y-1">
+                              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Quantity</label>
+                              <input
+                                type="number"
+                                min="1"
+                                className="w-full bg-white border border-slate-200 text-slate-900 rounded-lg px-3 py-2 font-semibold text-xs focus:outline-none focus:border-slate-400 transition"
+                                value={line.quantity}
+                                onChange={(e) => handleLineChange(index, "quantity", parseInt(e.target.value) || 1)}
+                                disabled={!line.product_id}
+                                required
+                              />
+                            </div>
 
-                          {/* Row subtotal */}
-                          <div className="w-24 text-right">
-                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Subtotal</span>
-                            <span className="font-extrabold text-sm text-slate-900 block py-1.5 pr-1">
-                              {selectedProd
-                                ? `$${(Number(selectedProd.price) * line.quantity).toFixed(2)}`
-                                : "$0.00"}
-                            </span>
-                          </div>
+                            {/* Row subtotal */}
+                            <div className="w-24 text-right">
+                              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Subtotal</span>
+                              <span className="font-extrabold text-sm text-slate-900 block py-1.5 pr-1">
+                                {selectedProd
+                                  ? `$${(Number(selectedProd.price) * line.quantity).toFixed(2)}`
+                                  : "$0.00"}
+                              </span>
+                            </div>
 
-                          {/* Delete row */}
-                          <button
-                            type="button"
-                            className="p-2 border border-red-100 bg-white hover:bg-red-50 text-red-500 rounded-lg shadow-sm cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center w-7 h-7"
-                            onClick={() => handleRemoveLine(index)}
-                            disabled={orderLines.length === 1}
-                          >
-                            <span className="text-xs font-bold select-none leading-none">✕</span>
-                          </button>
+                            {/* Delete row */}
+                            <button
+                              type="button"
+                              className="p-2 border border-red-100 bg-white hover:bg-red-50 text-red-500 rounded-lg shadow-sm cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center w-8 h-8 sm:w-7 sm:h-7"
+                              onClick={() => handleRemoveLine(index)}
+                              disabled={orderLines.length === 1}
+                            >
+                              <span className="text-xs font-bold select-none leading-none">✕</span>
+                            </button>
+                          </div>
                         </div>
 
                         {/* Inventory validation notices */}

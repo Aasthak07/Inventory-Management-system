@@ -176,9 +176,9 @@ export default function CustomersPage() {
       {/* Register Customer Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-fade-in">
-          <div className="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 max-w-md w-full shadow-2xl relative animate-scale-in">
+          <div className="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 max-w-md w-full shadow-2xl relative animate-scale-in max-h-[90vh] flex flex-col">
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-5">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-5 flex-shrink-0">
               <h2 className="text-xl font-bold text-slate-900">
                 Add Customer
               </h2>
@@ -191,7 +191,7 @@ export default function CustomersPage() {
             </div>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="space-y-4 text-sm">
+            <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto pr-1 space-y-4 text-sm">
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Full Name *</label>
                 <input
